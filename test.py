@@ -1,4 +1,9 @@
 import streamlit as st
+from streamlit_gsheets import GSheetsConnection
+
+conn = st.connection("gsheets", type=GSheetsConnection)
+df = conn.read(worksheet="시트1", ttl="10m" )
+print(df)
 
 def user_menu_selected(a):
     pass
