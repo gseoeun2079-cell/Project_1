@@ -6,7 +6,7 @@ df = conn.read(spreadsheet="https://docs.google.com/spreadsheets/d/1aH0yr2MrIu8a
 
 def user_menu_selected(a):
     output = df[(df['국가'] == a['국가']) & (df['국물'] == a['국물']) & (df['맵기'] == a['맵기']) & (df['온도'] == a['온도']) & (df['주식'] == a['주식']) & (df['스타일'] == a['스타일'])]
-    return output['추천 메뉴'].values[0]
+    return output['추천 메뉴'].values[0],output['음식 사진'].values[0]
 
 if '결과' not in st.session_state:
     st.session_state.결과 = ''
@@ -34,10 +34,13 @@ elif st.session_state.page == '선택화면':
     if st.button("선택완료"):
         st.session_state.page = '결과화면'
         st.session_state.결과 = user_menu_selected(a)
+        print(st.session_state.결과)
         st.rerun()
         
 elif st.session_state.page == '결과화면':
+    a,b = st.session_state.결과
     st.header("오늘의 추천메뉴는?")
+    st.write(st.session_state.결과)
     st.write(st.session_state.결과)
     if st.button("처음으로 돌아가기"):
         st.session_state.page = '첫화면'
